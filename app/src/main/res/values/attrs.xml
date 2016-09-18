@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="readyable">
+        <attr name="state_readying" format="boolean" />
+        <attr name="state_operating" format="boolean" />
+        <attr name="state_completing" format="boolean" />
+        <attr name="state_ready" format="boolean" />
+    </declare-styleable>
+</resources>
