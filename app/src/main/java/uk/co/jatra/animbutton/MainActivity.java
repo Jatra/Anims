@@ -1,9 +1,11 @@
 package uk.co.jatra.animbutton;
 
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
         rbutton = (ReadyableButton)findViewById(R.id.button);
         readying = (CheckBox) findViewById(R.id.readying);
         readying.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -66,14 +69,45 @@ public class MainActivity extends AppCompatActivity {
         Drawable d = progressBar.getIndeterminateDrawable();
         Log.d(TAG, d.toString());
 
+        fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        fab.setRippleColor(Color.CYAN);
+
+        final Drawable fabDrawable = getResources().getDrawable(R.drawable.ble_scan);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab.setImageResource(R.drawable.ble_scan);
+                fab.setImageDrawable(fabDrawable);
+//                fab.setImageResource(R.drawable.ble_scan);
                 AnimationDrawable animation = (AnimationDrawable)fab.getDrawable();
                 animation.start();
             }
         });
+
+
+        ImageView imageView4 = (ImageView)findViewById(R.id.imageView4);
+        Picasso.with(this)
+                .load("http://example.com")
+//                .placeholder(R.drawable.progress_animation)
+                .error(R.drawable.progress_animation)
+                .into(imageView4);
+
+
+//        AnimatedVectorDrawable avd = (AnimatedVectorDrawable)findViewById(R.id.bleanim);
+
+        ImageView bleanim = (ImageView)findViewById(R.id.bleanim);
+//        AnimatedVectorDrawable avd = (AnimatedVectorDrawable)bleanim.getDrawable();
+//        avd.start();
+
+        AnimatedVectorDrawableCompat avdc = AnimatedVectorDrawableCompat.create(this, R.drawable.bleanim);
+        bleanim.setImageDrawable(avdc);
+        avdc.start();
+
+
+        ImageView grid = (ImageView)findViewById(R.id.grid);
+        AnimatedVectorDrawableCompat gridv = AnimatedVectorDrawableCompat.create(this, R.drawable.gridav);
+        grid.setImageDrawable(gridv);
+        gridv.start();
+
     }
 
 }
